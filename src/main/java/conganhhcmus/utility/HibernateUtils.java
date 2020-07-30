@@ -1,30 +1,26 @@
 package conganhhcmus.utility;
+
+import conganhhcmus.model.entity.*;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.service.ServiceRegistry;
+import org.hibernate.cfg.Configuration;
 
 public class HibernateUtils {
-    private static final SessionFactory sessionFactory = buildSessionFactory();
-
-    private HibernateUtils() {
-        super();
-    }
-
-    private static SessionFactory buildSessionFactory() {
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder() //
-                .configure() // Load hibernate.cfg.xml from resource folder by default
-                .build();
-        Metadata metadata = new MetadataSources(serviceRegistry).getMetadataBuilder().build();
-        return metadata.getSessionFactoryBuilder().build();
-    }
+    private static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            try {
+                Configuration configuration = new Configuration();
+                configuration.configure();
+                configuration.addAnnotatedClass(User.class);
+                configuration.addAnnotatedClass(Conference.class);
+                configuration.addAnnotatedClass(Image.class);
+                configuration.addAnnotatedClass(Participant.class);
+                sessionFactory = configuration.buildSessionFactory();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return sessionFactory;
-    }
-
-    public static void close() {
-        getSessionFactory().close();
     }
 }

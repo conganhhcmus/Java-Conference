@@ -1,14 +1,14 @@
 package conganhhcmus.controller;
 
+import conganhhcmus.model.M_User;
+import conganhhcmus.model.entity.User;
 import conganhhcmus.utility.Utils;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -24,26 +24,44 @@ public class C_SignIn implements Initializable {
     private TextField username;
     @FXML
     private TextField password;
-    @FXML
-    private Button login;
+
     @FXML
     private AnchorPane panel;
+
+    private User user;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Load data here
-
     }
 
-//    Functions
-    public void Login() {
+    //    Functions
+    public void login() {
         try {
-            System.out.println("username:"+username.getText()+"\n"+"password:"+password.getText());
-            System.out.println("hash_password:"+ Utils.Hash(password.getText()));
+            String hashPassword = Utils.hash(password.getText());
+            this.user = M_User.getUserByUsername(username.getText());
+            if (Utils.isDiffString(user.getPassword(), hashPassword)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
 
-            // Change Screen
+                alert.setTitle("Error alert");
+                alert.setHeaderText(null);
+                alert.setContentText("Username or Password is incorrect!");
 
-            ChangeScreen("/view/main.fxml", panel);
+                alert.showAndWait();
+            } else if (user.getPermission() < 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
 
+                alert.setTitle("Error alert");
+                alert.setHeaderText(null);
+                alert.setContentText("Account is banned!");
+
+                alert.showAndWait();
+            } else if (user.getPermission() == 1) {
+                changeAdminHome("/view/admin_home.fxml");
+            } else {
+                // Change Screen
+                changeUserHome("/view/user_home.fxml");
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -53,11 +71,11 @@ public class C_SignIn implements Initializable {
         }
     }
 
-    public void SignUp() {
+    public void signUp() {
         try {
             // Change Screen
 
-            ChangeScreen("/view/signup.fxml", panel);
+            changeScreen("/view/signup.fxml");
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -66,10 +84,37 @@ public class C_SignIn implements Initializable {
         }
     }
 
-    public void ChangeScreen(String path, AnchorPane panel) throws IOException {
+    public void changeScreen(String path) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-        Parent tmp =  loader.load();
+        Parent tmp = loader.load();
         Scene scene = new Scene(tmp);
+
+        final Stage appStage = (Stage) panel.getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.show();
+    }
+
+    public void changeUserHome(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        Parent tmp = loader.load();
+        Scene scene = new Scene(tmp);
+
+        C_UserHome home = loader.getController();
+        home.loadData(user);
+
+        final Stage appStage = (Stage) panel.getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.show();
+    }
+
+    public void changeAdminHome(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        Parent tmp = loader.load();
+        Scene scene = new Scene(tmp);
+
+        C_AdminHome home = loader.getController();
+        home.loadData(user);
+
         final Stage appStage = (Stage) panel.getScene().getWindow();
         appStage.setScene(scene);
         appStage.show();

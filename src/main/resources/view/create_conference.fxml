@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import tornadofx.control.DateTimePicker?>
+
+<AnchorPane fx:id="panel" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conganhhcmus.controller.C_AdminConference">
+    <children>
+        <BorderPane prefHeight="600.0" prefWidth="800.0">
+            <left>
+                <VBox alignment="TOP_CENTER" prefHeight="596.0" prefWidth="203.0" spacing="15.0" style="-fx-background-color: #0B90C9; -fx-background-radius: 0 30 0 0;" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane prefHeight="54.0" prefWidth="203.0">
+                            <children>
+                                <Label contentDisplay="CENTER" layoutX="46.0" layoutY="11.0" prefWidth="111.0" style="-fx-wrap-text: true;" text="CONFERENCE PROGRAMING" textFill="WHITE">
+                                    <font>
+                                        <Font name="Arial Bold" size="15.0" />
+                                    </font>
+                                </Label>
+                            </children></Pane>
+                        <ImageView fx:id="avatar" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="username" text="UserName" textFill="WHITE">
+                            <font>
+                                <Font name="Arial" size="15.0" />
+                            </font>
+                        </Label>
+                        <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#home" prefHeight="27.0" prefWidth="149.0" text="Conference">
+                            <font>
+                                <Font name="Arial" size="13.0" />
+                            </font>
+                        </Button>
+                        <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#account" prefHeight="27.0" prefWidth="149.0" text="Profile">
+                            <font>
+                                <Font name="Arial" size="13.0" />
+                            </font>
+                        </Button>
+                        <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#request" prefHeight="27.0" prefWidth="149.0" text="Request">
+                            <font>
+                                <Font name="Arial" size="13.0" />
+                            </font>
+                        </Button>
+                        <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="27.0" prefWidth="149.0" text="User">
+                            <font>
+                                <Font name="Arial" size="13.0" />
+                            </font>
+                        </Button>
+                        <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#logOut" prefHeight="27.0" prefWidth="149.0" text="Logout">
+                            <font>
+                                <Font name="Arial" size="13.0" />
+                            </font>
+                        </Button>
+                        <Pane prefHeight="167.0" prefWidth="203.0" />
+                    </children>
+                </VBox>
+            </left>
+            <center>
+                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <top>
+                        <HBox prefHeight="57.0" prefWidth="597.0" spacing="10.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <Pane prefHeight="57.0" prefWidth="639.0" style="-fx-background-color: #FFF;">
+                           <children>
+                              <Button onMouseClicked="#home" layoutX="25.0" layoutY="15.0" mnemonicParsing="false" text="Back">
+                                 <font>
+                                    <Font name="Arial" size="15.0" />
+                                 </font>
+                                 <graphic>
+                                    <FontAwesomeIcon glyphName="ARROW_LEFT" />
+                                 </graphic>
+                              </Button>
+                              <Button onMouseClicked="#add" layoutX="519.0" layoutY="15.0" mnemonicParsing="false" text="Add">
+                                 <font>
+                                    <Font name="Arial" size="15.0" />
+                                 </font>
+                                 <graphic>
+                                    <FontAwesomeIcon glyphName="CHECK" />
+                                 </graphic>
+                              </Button>
+                              <Label layoutX="226.0" layoutY="20.0" text="NEW CONFERENCE" textFill="#0b90c9">
+                                 <font>
+                                    <Font name="Arial Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                                </Pane>
+                            </children>
+                        </HBox>
+                    </top>
+               <center>
+                  <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="68.0" layoutY="27.0" text="IMAGE FILE:">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="url" layoutX="254.0" layoutY="22.0" prefHeight="27.0" prefWidth="195.0" />
+                        <Button layoutX="470.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#upLoad" text="Upload">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="68.0" layoutY="67.0" text="CONFERENCE NAME:">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField onKeyTyped="#update" fx:id="conference_name" layoutX="254.0" layoutY="62.0" prefHeight="27.0" prefWidth="196.0" />
+                        <Label layoutX="68.0" layoutY="108.0" text="NUMBER MEMBER:">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField onKeyTyped="#update" fx:id="number_member" layoutX="254.0" layoutY="103.0" prefHeight="27.0" prefWidth="197.0" />
+                        <Label layoutX="68.0" layoutY="149.0" text="ADDRESS:">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField onKeyTyped="#update" fx:id="address" layoutX="254.0" layoutY="144.0" prefHeight="27.0" prefWidth="197.0" />
+                        <Label layoutX="68.0" layoutY="190.0" text="START DATE:">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <DateTimePicker onKeyPressed="#update" fx:id="start_time" layoutX="254.0" layoutY="185.0" prefHeight="27.0" prefWidth="198.0" />
+                        <Label layoutX="68.0" layoutY="233.0" text="END DATE:">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <DateTimePicker onKeyPressed="#update" fx:id="end_time" layoutX="254.0" layoutY="228.0" prefHeight="27.0" prefWidth="198.0" />
+                        <Label layoutX="68.0" layoutY="270.0" text="DESCRIPTION:">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextArea onKeyTyped="#update" fx:id="description" layoutX="68.0" layoutY="296.0" prefHeight="81.0" prefWidth="454.0" />
+                        <Label layoutX="68.0" layoutY="389.0" text="PREVIEW:">
+                           <font>
+                              <Font name="Arial Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Pane layoutX="1.0" layoutY="412.0" prefHeight="119.0" prefWidth="595.0">
+                           <children>
+                              <ImageView fx:id="img" fitHeight="100.0" fitWidth="100.0" layoutX="68.0" layoutY="10.0" pickOnBounds="true" />
+                              <Label fx:id="conference_name_title" layoutX="208.0" layoutY="17.0" text="Name Conference">
+                                 <font>
+                                    <Font name="Arial Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="address_title" layoutX="208.0" layoutY="39.0" text="HO CHI MINH city">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="time_title" layoutX="208.0" layoutY="63.0" text="Time: ">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="number" layoutX="208.0" layoutY="86.0" text="Member:">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+               </center>
+                </BorderPane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

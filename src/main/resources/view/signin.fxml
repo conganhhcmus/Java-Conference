@@ -15,27 +15,27 @@
          <children>
             <TextField fx:id="username" layoutX="27.0" layoutY="114.0" prefHeight="40.0" prefWidth="250.0" promptText="Username">
                <font>
-                  <Font size="15.0" />
+                  <Font name="Arial" size="15.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="password" layoutX="27.0" layoutY="175.0" prefHeight="40.0" prefWidth="250.0" promptText="Password" style="-fx-font-size: 12px;">
+            <PasswordField onAction="#login" fx:id="password" layoutX="27.0" layoutY="175.0" prefHeight="40.0" prefWidth="250.0" promptText="Password">
                <font>
                   <Font size="15.0" />
                </font>
             </PasswordField>
-            <Button fx:id="login" alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#Login" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #0B90C9;" text="LOGIN" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="login" alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #0B90C9;" text="LOGIN" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="17.0" />
+                  <Font name="Arial Bold" size="17.0" />
                </font>
             </Button>
             <Label alignment="CENTER" layoutX="102.0" layoutY="39.0" text="Sign In" textFill="#0b90c9">
                <font>
-                  <Font size="35.0" />
+                  <Font name="Arial" size="35.0" />
                </font>
             </Label>
-            <Label onMouseClicked="#SignUp" layoutX="219.0" layoutY="222.0" style="-fx-underline: true;" text="Register" textFill="#0b90c9">
+            <Label layoutX="219.0" layoutY="222.0" onMouseClicked="#signUp" style="-fx-underline: true;" text="Register" textFill="#0b90c9">
                <font>
-                  <Font size="15.0" />
+                  <Font name="Arial" size="15.0" />
                </font>
             </Label>
          </children>

@@ -9,43 +9,54 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #0B90C9;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conganhhcmus.controller.C_SignUp">
+<AnchorPane fx:id="panel" prefHeight="526.0" prefWidth="700.0" style="-fx-background-color: #0B90C9;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conganhhcmus.controller.C_SignUp">
    <children>
-      <AnchorPane layoutX="362.0" layoutY="44.0" prefHeight="312.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;">
+      <AnchorPane layoutX="365.0" layoutY="63.0" prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <TextField fx:id="username" layoutX="27.0" layoutY="71.0" prefHeight="40.0" prefWidth="250.0" promptText="Username">
                <font>
-                  <Font size="15.0" />
+                  <Font name="Arial" size="15.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="password" layoutX="27.0" layoutY="175.0" prefHeight="40.0" prefWidth="250.0" promptText="Confirm Password" style="-fx-font-size: 12px;">
+            <PasswordField fx:id="confirm_password" layoutX="27.0" layoutY="123.0" prefHeight="40.0" prefWidth="250.0" promptText="Password">
                <font>
-                  <Font size="15.0" />
+                  <Font name="Arial" size="15.0" />
                </font>
             </PasswordField>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#SignUp" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #0B90C9;" text="REGISTER" textAlignment="CENTER" textFill="WHITE">
+            <PasswordField fx:id="password" layoutX="27.0" layoutY="175.0" prefHeight="40.0" prefWidth="250.0" promptText="Confirm Password">
                <font>
-                  <Font name="System Bold" size="17.0" />
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </PasswordField>
+            <TextField fx:id="email" layoutX="27.0" layoutY="227.0" prefHeight="40.0" prefWidth="250.0" promptText="Email">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="fullname" layoutX="27.0" layoutY="279.0" prefHeight="40.0" prefWidth="250.0" promptText="Full Name">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </TextField>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="31.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#signUp" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #0B90C9;" text="REGISTER" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="17.0" />
                </font>
             </Button>
             <Label alignment="CENTER" layoutX="93.0" layoutY="17.0" text="Sign Up" textFill="#0b90c9">
                <font>
-                  <Font size="35.0" />
+                  <Font name="Arial" size="35.0" />
                </font>
             </Label>
-            <Label onMouseClicked="#SignIn" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" layoutX="216.0" layoutY="222.0" prefHeight="19.0" prefWidth="58.0" text="Sign In" textAlignment="CENTER" textFill="#0b90c9" underline="true">
+            <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" layoutX="218.0" layoutY="322.0" onMouseClicked="#signIn" prefHeight="19.0" prefWidth="58.0" text="Sign In" textAlignment="CENTER" textFill="#0b90c9" underline="true">
                <font>
-                  <Font size="15.0" />
+                  <Font name="Arial" size="15.0" />
                </font>
             </Label>
-            <PasswordField fx:id="confirm_password" layoutX="27.0" layoutY="123.0" prefHeight="40.0" prefWidth="250.0" promptText="Password" style="-fx-font-size: 12px;">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </PasswordField>
+
          </children>
       </AnchorPane>
-      <ImageView fitHeight="300.0" fitWidth="300.0" layoutX="30.0" layoutY="53.0">
+      <ImageView fitHeight="300.0" fitWidth="300.0" layoutX="36.0" layoutY="113.0">
          <image>
             <Image url="@../img/conference.png" />
          </image>
