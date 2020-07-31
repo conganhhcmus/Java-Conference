@@ -1,11 +1,14 @@
 package conganhhcmus.model;
 
 import conganhhcmus.model.entity.Conference;
-import conganhhcmus.model.entity.User;
 import conganhhcmus.utility.HibernateUtils;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 
-import javax.persistence.NoResultException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +26,37 @@ public class M_Conference {
             return conferences;
         }
     }
+
+    public static List<Conference> getAllConferenceJoined(Long userId) {
+        try (Session session = HibernateUtils.getSessionFactory().openSession();) {
+            // Begin a unit of work
+            session.beginTransaction();
+
+            List<Conference> conferences = session.createQuery("from Conference p where p.id in (select x.conferenceid from Participant x where x.userid = :userId and x.state = 1) order by p.starttime desc", Conference.class)
+                    .setParameter("userId", userId)
+                    .list();
+
+            session.getTransaction().commit();
+            session.close();
+            return conferences;
+        }
+    }
+
+    public static List<Conference> getAllConferenceJoinedOrderName(Long userId) {
+        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+            // Begin a unit of work
+            session.beginTransaction();
+
+            List<Conference> conferences = session.createQuery("from Conference p where p.id in (select x.conferenceid from Participant x where x.userid = :userId and x.state = 1) order by p.conferencename asc", Conference.class)
+                    .setParameter("userId", userId)
+                    .list();
+
+            session.getTransaction().commit();
+            session.close();
+            return conferences;
+        }
+    }
+
 
     public static List<Conference> getAllConferenceOrderName() {
         try (Session session = HibernateUtils.getSessionFactory().openSession();) {
@@ -49,6 +83,32 @@ public class M_Conference {
             session.close();
             return numberOfConference;
         }
+    }
+
+    public static List<Conference> getAllConferenceFTSOrderByDate(String keyword) {
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+        Transaction tx = fullTextSession.beginTransaction();
+        try {
+            fullTextSession.createIndexer().startAndWait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        QueryBuilder qb = fullTextSession.getSearchFactory()
+                .buildQueryBuilder().forEntity(Conference.class).get();
+
+        org.apache.lucene.search.Query query = qb
+                .keyword().onFields("conferencename")
+                .matching(keyword)
+                .createQuery();
+
+        List<Conference> results = fullTextSession.createFullTextQuery(query, Conference.class).list();
+
+        tx.commit();
+        session.close();
+        return results;
     }
 
     public static Long addConference(Long imageid, String conferencename, String address, Date starttime, Date endtime, String description, Long membernumber) {

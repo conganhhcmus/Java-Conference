@@ -131,6 +131,10 @@ public class Utils {
             return false;
         return pat.matcher(email).matches();
     }
+
+    public static boolean containsIgnoreCase(String str, String subString) {
+        return str.toLowerCase().contains(subString.toLowerCase());
+    }
 }
 
 

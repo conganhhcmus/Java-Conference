@@ -71,7 +71,7 @@
                             <children>
                                 <Pane prefHeight="57.0" prefWidth="639.0">
                                     <children>
-                                        <TextField alignment="TOP_LEFT" layoutX="25.0" layoutY="15.0" prefHeight="27.0" prefWidth="152.0" promptText="Search Conference" style="-fx-background-radius: 10;">
+                                        <TextField fx:id="search" onKeyTyped="#search" alignment="TOP_LEFT" layoutX="25.0" layoutY="15.0" prefHeight="27.0" prefWidth="152.0" promptText="Search Conference" style="-fx-background-radius: 10;">
                                             <opaqueInsets>
                                                 <Insets />
                                             </opaqueInsets>

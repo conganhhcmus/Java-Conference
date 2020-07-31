@@ -99,21 +99,21 @@ values (null, 'admin', 'ISMvKXpXpadDiUoOSoAfww==', 'admin@gmail.com', 'admin', 1
 insert into USER (AVATAR, USERNAME, PASSWORD, EMAIL, FULL_NAME, PERMISSION, TIME)
 values (null, 'username1', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username1@gmail.com', 'username1', 0, '2020-07-29 18:40:54');
 insert into USER (AVATAR, USERNAME, PASSWORD, EMAIL, FULL_NAME, PERMISSION, TIME)
-values (null, 'username2', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username2@gmail.com', 'username2', 0, '2020-07-29 18:40:54');
+values (null, 'username2', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username2@gmail.com', 'username2', 0, '2020-07-20 18:40:54');
 insert into USER (AVATAR, USERNAME, PASSWORD, EMAIL, FULL_NAME, PERMISSION, TIME)
-values (null, 'username3', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username3@gmail.com', 'username3', 0, '2020-07-29 18:40:54');
+values (null, 'username3', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username3@gmail.com', 'username3', 0, '2020-01-29 18:40:54');
 insert into USER (AVATAR, USERNAME, PASSWORD, EMAIL, FULL_NAME, PERMISSION, TIME)
 values (null, 'username4', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username4@gmail.com', 'username4', 0, '2020-07-29 18:40:54');
 insert into USER (AVATAR, USERNAME, PASSWORD, EMAIL, FULL_NAME, PERMISSION, TIME)
-values (null, 'username5', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username5@gmail.com', 'username5', 0, '2020-07-29 18:40:54');
+values (null, 'username5', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username5@gmail.com', 'username5', 0, '2020-03-29 18:40:54');
 insert into USER (AVATAR, USERNAME, PASSWORD, EMAIL, FULL_NAME, PERMISSION, TIME)
 values (null, 'username6', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username6@gmail.com', 'username6', 0, '2020-07-29 18:40:54');
 insert into USER (AVATAR, USERNAME, PASSWORD, EMAIL, FULL_NAME, PERMISSION, TIME)
-values (null, 'username7', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username7@gmail.com', 'username7', 0, '2020-07-29 18:40:54');
+values (null, 'username7', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username7@gmail.com', 'username7', 0, '2020-04-12 18:40:54');
 insert into USER (AVATAR, USERNAME, PASSWORD, EMAIL, FULL_NAME, PERMISSION, TIME)
-values (null, 'username8', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username8@gmail.com', 'username8', 0, '2020-07-29 18:40:54');
+values (null, 'username8', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username8@gmail.com', 'username8', 0, '2020-07-22 18:40:54');
 insert into USER (AVATAR, USERNAME, PASSWORD, EMAIL, FULL_NAME, PERMISSION, TIME)
-values (null, 'username9', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username9@gmail.com', 'username9', 0, '2020-07-29 18:40:54');
+values (null, 'username9', 'Xa+mzrL8FwzAlx15QuWb+Q==', 'username9@gmail.com', 'username9', 0, '2020-07-25 18:40:54');
 
 # IMAGE
 insert into IMAGE (ORIGINAL_NAME, HASH_NAME, TIME)
@@ -127,22 +127,30 @@ values ('business.jpeg', 'gxD3STu+VpxI7KXcd5PFTw==', '2020-07-30 14:07:43');
 
 # CONFERENCE
 insert into CONFERENCE (MAIN_IMAGE, CONFERENCE_NAME, START_TIME, END_TIME, DESCRIPTION, TIME, MEMBER_NUMBER, ADDRESS)
-values (1, 'Student Conference', '2020-08-08 08:30:00', '2020-08-08 10:30:00',
-        'Hoi nghi danh cho sinh vien, hoc sinh. Co su gop mat cua cac khach moi noi tieng!', '2020-07-30 10:13:19', 5,
+values (1, 'Student Conference', '2020-08-07 08:30:00', '2020-08-07 10:30:00',
+        'Hoi nghi danh cho sinh vien, hoc sinh. Co su gop mat cua cac khach moi noi tieng!', '2020-07-30 10:13:19', 10,
         'Ho Chi Minh city');
 
 insert into CONFERENCE (MAIN_IMAGE, CONFERENCE_NAME, START_TIME, END_TIME, DESCRIPTION, TIME, MEMBER_NUMBER, ADDRESS)
-values (2, 'Teacher Conference', '2020-08-08 16:30:00', '2020-08-08 18:30:00',
-        'Hoi nghi danh cho giao vien. Co su gop mat cua cac khach moi noi tieng!', '2020-07-30 10:13:19', 10,
+values (2, 'Teacher Conference', '2020-07-08 16:30:00', '2020-07-08 18:30:00',
+        'Hoi nghi danh cho giao vien. Co su gop mat cua cac khach moi noi tieng!', '2020-07-30 10:13:19', 2,
         'Ho Chi Minh city');
 
 insert into CONFERENCE (MAIN_IMAGE, CONFERENCE_NAME, START_TIME, END_TIME, DESCRIPTION, TIME, MEMBER_NUMBER, ADDRESS)
 values (3, 'Business Conference', '2020-08-10 07:30:00', '2020-08-10 11:30:00',
-        'Hoi nghi danh cho doanh nghiep. Co su gop mat cua cac khach moi noi tieng!', '2020-07-30 10:13:19', 2,
+        'Hoi nghi danh cho doanh nghiep. Co su gop mat cua cac khach moi noi tieng!', '2020-07-30 10:13:19', 5,
         'Ho Chi Minh city');
+
+/*==============================================================*/
+/* Add: FULL-TEXT-SEARCH                                        */
+/*==============================================================*/
+
+COMMIT;
+alter table CONFERENCE add fulltext (CONFERENCE_NAME);
+alter table USER add fulltext (FULL_NAME);
+COMMIT;
 
 /*==============================================================*/
 /* Delete: DATA                                                 */
 /*==============================================================*/
 # drop database CONFERENCE;
-

@@ -1,8 +1,11 @@
 package conganhhcmus.controller;
 
+import conganhhcmus.model.M_Conference;
 import conganhhcmus.model.M_Image;
 import conganhhcmus.model.M_User;
+import conganhhcmus.model.entity.Conference;
 import conganhhcmus.model.entity.User;
+import conganhhcmus.utility.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -50,18 +53,64 @@ public class C_AdminUser implements Initializable {
     private TextField search;
 
     private User user;
+    private List<User> listUser;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sort.getItems().addAll("Date", "Name");
         sort.getSelectionModel().select(0);
         back.setVisible(false);
+        sort.setOnAction(e -> {
+            int index = sort.getSelectionModel().getSelectedIndex();
+            if (index == 0) {
+                listUser = M_User.getAllUserOrderByDate();
+            } else {
+                listUser = M_User.getAllUserOrderByName();
+            }
+            search();
+            showUser();
+        });
+    }
+    public void search() {
+        if (search.getText().isEmpty()) {
+            int index = sort.getSelectionModel().getSelectedIndex();
+            if (index == 0) {
+                listUser = M_User.getAllUserOrderByDate();
+            } else {
+                listUser = M_User.getAllUserOrderByName();
+            }
+
+            showUser();
+
+        } else {
+            int index = sort.getSelectionModel().getSelectedIndex();
+            if (index == 0) {
+//                conferences = M_Conference.getAllConferenceFTSOrderByDate(search.getText());
+                List<User> temp = new ArrayList<>();
+                for (User v : listUser) {
+                    if (Utils.containsIgnoreCase(v.getUsername(),search.getText())) {
+                        temp.add(v);
+                    }
+                }
+                listUser = temp;
+            } else {
+//                conferences = M_Conference.getAllConferenceFTSOrderByDate(search.getText());
+                List<User> temp = new ArrayList<>();
+                for (User v : listUser) {
+                    if (Utils.containsIgnoreCase(v.getUsername(),search.getText())) {
+                        temp.add(v);
+                    }
+                }
+                listUser = temp;
+            }
+
+            showUser();
+        }
     }
 
     public void showUser() {
         List<Pane> tmp = new ArrayList<Pane>();
-        List<User> user = M_User.getAllUser();
-        for (User v : user) {
+        for (User v : listUser) {
             tmp.add(viewPane(v));
         }
         ObservableList<Pane> listRequest = FXCollections.observableArrayList(tmp);
@@ -268,6 +317,7 @@ public class C_AdminUser implements Initializable {
             File file = new File("src/main/resources/img/" + M_Image.getImageById(user.getAvatar()).getHashname() + ".png");
             avatar.setImage(new Image(file.toURI().toString()));
         }
+        listUser = M_User.getAllUserOrderByDate();
         showUser();
     }
 }

@@ -164,6 +164,28 @@ public class C_AdminRequest implements Initializable {
         appStage.setScene(scene);
         appStage.show();
     }
+
+    public void home() {
+        try {
+            changeHome("/view/admin_home.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeHome(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        Parent tmp = loader.load();
+        Scene scene = new Scene(tmp);
+
+        C_AdminHome temp = loader.getController();
+        temp.loadData(user);
+
+        final Stage appStage = (Stage) panel.getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.show();
+    }
+
     public void user() {
         try {
             changeUser("/view/admin_user.fxml");

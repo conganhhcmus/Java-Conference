@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conganhhcmus.controller.C_UserHome">
+<AnchorPane fx:id="panel" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conganhhcmus.controller.C_UserJoined">
     <children>
         <BorderPane prefHeight="600.0" prefWidth="800.0">
             <left>
@@ -34,7 +34,7 @@
                                 <Font name="Arial" size="15.0" />
                             </font>
                         </Label>
-                        <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="27.0" prefWidth="149.0" text="Conference">
+                        <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#home" prefHeight="27.0" prefWidth="149.0" text="Conference">
                             <font>
                                 <Font name="Arial" size="13.0" />
                             </font>
@@ -44,11 +44,11 @@
                                 <Font name="Arial" size="13.0" />
                             </font>
                         </Button>
-                  <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#joined" prefHeight="27.0" prefWidth="149.0" text="Joined">
-                     <font>
-                        <Font name="Arial" size="13.0" />
-                     </font>
-                  </Button>
+                        <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false"  prefHeight="27.0" prefWidth="149.0" text="Joined">
+                            <font>
+                                <Font name="Arial" size="13.0" />
+                            </font>
+                        </Button>
                         <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#logOut" prefHeight="27.0" prefWidth="149.0" text="Logout">
                             <font>
                                 <Font name="Arial" size="13.0" />

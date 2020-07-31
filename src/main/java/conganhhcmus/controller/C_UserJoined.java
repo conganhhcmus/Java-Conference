@@ -26,10 +26,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class C_UserHome implements Initializable {
+public class C_UserJoined implements Initializable {
 
     @FXML
     private ComboBox view;
@@ -47,10 +48,10 @@ public class C_UserHome implements Initializable {
     private Label username;
 
     @FXML
-    private TextField search;
+    private ImageView avatar;
 
     @FXML
-    private ImageView avatar;
+    private TextField search;
 
     private User user;
     private List<Conference> conferences;
@@ -74,9 +75,9 @@ public class C_UserHome implements Initializable {
         sort.setOnAction(e -> {
             int index = sort.getSelectionModel().getSelectedIndex();
             if (index == 0) {
-                conferences = M_Conference.getAllConference();
+                conferences = M_Conference.getAllConferenceJoined(user.getId());
             } else {
-                conferences = M_Conference.getAllConferenceOrderName();
+                conferences = M_Conference.getAllConferenceJoinedOrderName(user.getId());
             }
             search();
             int temp = view.getSelectionModel().getSelectedIndex();
@@ -87,7 +88,7 @@ public class C_UserHome implements Initializable {
             }
         });
 
-        conferences = M_Conference.getAllConference();
+
     }
 
     public void cardView() {
@@ -100,7 +101,6 @@ public class C_UserHome implements Initializable {
 
         return card;
     }
-
     public void search() {
         if (search.getText().isEmpty()) {
             int index = sort.getSelectionModel().getSelectedIndex();
@@ -147,7 +147,6 @@ public class C_UserHome implements Initializable {
             }
         }
     }
-
     public void listView(List<Conference> conferences) {
         List<Pane> tmp = new ArrayList<Pane>();
         for (Conference v : conferences) {
@@ -185,7 +184,7 @@ public class C_UserHome implements Initializable {
         Label time = new Label();
         time.setLayoutX(140.0);
         time.setLayoutY(46.0);
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm MM/dd/yyyy");
         String str = formatter.format(conference.getStarttime()) + " - " + formatter.format(conference.getEndtime());
         time.setText("Time: " + str);
         time.setFont(new Font("Arial", 13.0));
@@ -214,31 +213,33 @@ public class C_UserHome implements Initializable {
         join.setMnemonicParsing(false);
         join.setPrefHeight(25);
         join.setPrefWidth(60);
-        join.setText("Join");
+        join.setText("Joined");
+        join.setDisable(true);
         join.setFont(new Font("Arial", 13.0));
 
         // action join
         join.setOnMouseClicked(event -> {
-            M_Participant.addParticipant(user.getId(), conference.getId());
-            join.setText("Waiting");
-            join.setDisable(true);
-            listView(conferences);
+
+            M_Participant.deleteRequest(M_Participant.getRequestByUserConference(user.getId(), conference.getId()).getId());
+
+            // Load view
+            int index = sort.getSelectionModel().getSelectedIndex();
+            if (index == 0) {
+                conferences = M_Conference.getAllConferenceJoined(user.getId());
+            } else {
+                conferences = M_Conference.getAllConferenceJoinedOrderName(user.getId());
+            }
+            int temp = view.getSelectionModel().getSelectedIndex();
+            if (temp == 0) {
+                listView(conferences);
+            } else {
+//                cardView();
+            }
         });
 
-        if (M_Participant.checkUserInConference(user.getId(), conference.getId()) == 1) {
-            join.setDisable(true);
-            join.setText("Joined");
-        } else if (M_Participant.checkUserInConference(user.getId(), conference.getId()) == -1) {
-            join.setDisable(true);
-            join.setText("Denied");
-        } else if (M_Participant.numberJoinConference(conference.getId()).equals(conference.getMembernumber())) {
-            join.setDisable(true);
-        } else if (M_Participant.checkUserInConference(user.getId(), conference.getId()) == -2) {
-            join.setText("Join");
+        if (M_Participant.checkUserInConference(user.getId(), conference.getId()) == 1 && conference.getStarttime().before(new Date())) {
             join.setDisable(false);
-        } else {
-            join.setDisable(true);
-            join.setText("Waiting");
+            join.setText("Unjoin");
         }
 
         Button detail = new Button();
@@ -252,7 +253,7 @@ public class C_UserHome implements Initializable {
         // action detail
         detail.setOnMouseClicked(event -> {
             try {
-                changeDetail("/view/user_detail_conference.fxml", conference);
+                changeDetail("/view/user_joined_detail.fxml", conference);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -285,6 +286,27 @@ public class C_UserHome implements Initializable {
         appStage.show();
     }
 
+    public void home() {
+        try {
+            changeHome("/view/user_home.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeHome(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        Parent tmp = loader.load();
+        Scene scene = new Scene(tmp);
+
+        C_UserHome temp = loader.getController();
+        temp.loadData(user);
+
+        final Stage appStage = (Stage) panel.getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.show();
+    }
+
     public void logOut() {
         user = null;
         try {
@@ -304,28 +326,6 @@ public class C_UserHome implements Initializable {
         appStage.show();
     }
 
-    public void joined() {
-        try {
-            changeJoined("/view/user_joined.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void changeJoined(String path) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-        Parent tmp = loader.load();
-        Scene scene = new Scene(tmp);
-
-        C_UserJoined temp = loader.getController();
-        temp.loadData(user);
-
-        final Stage appStage = (Stage) panel.getScene().getWindow();
-        appStage.setScene(scene);
-        appStage.show();
-    }
-
     public void loadData(User data) {
         username.setText(data.getUsername());
         user = data;
@@ -335,6 +335,7 @@ public class C_UserHome implements Initializable {
             File file = new File("src/main/resources/img/" + M_Image.getImageById(user.getAvatar()).getHashname() + ".png");
             avatar.setImage(new Image(file.toURI().toString()));
         }
+        conferences = M_Conference.getAllConferenceJoined(user.getId());
         listView(conferences);
     }
 
@@ -343,7 +344,7 @@ public class C_UserHome implements Initializable {
         Parent tmp = loader.load();
         Scene scene = new Scene(tmp);
 
-        C_UserConferenceDetail temp = loader.getController();
+        C_UserJoinedDetail temp = loader.getController();
         temp.loadData(user, data);
 
         final Stage appStage = (Stage) panel.getScene().getWindow();

@@ -1,10 +1,14 @@
 package conganhhcmus.model.entity;
 
+
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
+@Indexed
 @Table(name = "CONFERENCE")
 public class Conference {
     @Id
@@ -16,6 +20,7 @@ public class Conference {
     private Long imageid;
 
     @Column(name = "CONFERENCE_NAME")
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     private String conferencename;
 
     @Column(name = "ADDRESS")

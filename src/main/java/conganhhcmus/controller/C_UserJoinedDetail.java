@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.*;
@@ -28,7 +29,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import tornadofx.control.DateTimePicker;
 
-public class C_UserConferenceDetail implements Initializable {
+public class C_UserJoinedDetail implements Initializable {
 
     @FXML
     private Label username_title;
@@ -83,20 +84,12 @@ public class C_UserConferenceDetail implements Initializable {
     public void loadData(User data, Conference data_conference) {
         user = data;
         conference = data_conference;
-        if (M_Participant.checkUserInConference(user.getId(), conference.getId()) == 1) {
-            join.setDisable(true);
-            join.setText("Joined");
-        } else if (M_Participant.checkUserInConference(user.getId(), conference.getId()) == -1) {
-            join.setDisable(true);
-            join.setText("Denied");
-        } else if (M_Participant.numberJoinConference(conference.getId()).equals(conference.getMembernumber())) {
-            join.setDisable(true);
-        } else if (M_Participant.checkUserInConference(user.getId(), conference.getId()) == -2) {
-            join.setText("Join");
+        join.setDisable(true);
+        join.setText("Joined");
+
+        if (M_Participant.checkUserInConference(user.getId(), conference.getId()) == 1 && conference.getStarttime().before(new Date())) {
             join.setDisable(false);
-        } else {
-            join.setDisable(true);
-            join.setText("Waiting");
+            join.setText("Unjoin");
         }
 
         username_title.setText(data.getUsername());
@@ -124,9 +117,8 @@ public class C_UserConferenceDetail implements Initializable {
     }
 
     public void join() {
-        M_Participant.addParticipant(user.getId(), conference.getId());
-        join.setText("Waiting");
-        join.setDisable(true);
+        M_Participant.deleteRequest(M_Participant.getRequestByUserConference(user.getId(), conference.getId()).getId());
+        back();
     }
 
     public void back() {
@@ -155,35 +147,13 @@ public class C_UserConferenceDetail implements Initializable {
 
     public void home() {
         try {
-            changeHome("/view/user_home.fxml");
+            changeHome("/view/user_joined.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void changeHome(String path) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-        Parent tmp = loader.load();
-        Scene scene = new Scene(tmp);
-
-        C_UserHome home = loader.getController();
-        home.loadData(user);
-
-        final Stage appStage = (Stage) panel.getScene().getWindow();
-        appStage.setScene(scene);
-        appStage.show();
-    }
-
-
-    public void joined() {
-        try {
-            changeJoined("/view/user_joined.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void changeJoined(String path) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
         Parent tmp = loader.load();
         Scene scene = new Scene(tmp);
@@ -195,4 +165,26 @@ public class C_UserConferenceDetail implements Initializable {
         appStage.setScene(scene);
         appStage.show();
     }
+
+    public void account() {
+        try {
+            changeProfile("/view/user_profile.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeProfile(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        Parent tmp = loader.load();
+        Scene scene = new Scene(tmp);
+
+        C_UserProfile temp = loader.getController();
+        temp.loadData(user);
+
+        final Stage appStage = (Stage) panel.getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.show();
+    }
+
 }

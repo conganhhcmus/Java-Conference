@@ -42,6 +42,11 @@
                                 <Font name="Arial" size="13.0" />
                             </font>
                         </Button>
+                  <Button onMouseClicked="#joined" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="27.0" prefWidth="149.0" text="Joined">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                  </Button>
                         <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#logOut" prefHeight="27.0" prefWidth="149.0" text="Logout">
                             <font>
                                 <Font name="Arial" size="13.0" />

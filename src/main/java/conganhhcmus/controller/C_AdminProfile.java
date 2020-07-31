@@ -145,6 +145,48 @@ public class C_AdminProfile extends Component implements Initializable {
         appStage.show();
     }
 
+    public void request() {
+        try {
+            changeRequest("/view/admin_request.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeRequest(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        Parent tmp = loader.load();
+        Scene scene = new Scene(tmp);
+
+        C_AdminRequest temp = loader.getController();
+        temp.loadData(user);
+
+        final Stage appStage = (Stage) panel.getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.show();
+    }
+
+    public void user() {
+        try {
+            changeUser("/view/admin_user.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeUser(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        Parent tmp = loader.load();
+        Scene scene = new Scene(tmp);
+
+        C_AdminUser temp = loader.getController();
+        temp.loadData(user);
+
+        final Stage appStage = (Stage) panel.getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.show();
+    }
+
     public void edit() {
         confirm_password.setVisible(true);
         save_change.setVisible(true);

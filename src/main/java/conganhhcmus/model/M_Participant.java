@@ -47,11 +47,11 @@ public class M_Participant {
     }
 
     public static int checkUserInConference(Long userId, Long conferenceId) {
-        try (Session session = HibernateUtils.getSessionFactory().openSession();) {
+        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
             // Begin a unit of work
             session.beginTransaction();
 //            SELECT * FROM bugs WHERE ID = (SELECT MAX(ID) FROM bugs WHERE user = 'me')
-            Participant participant = session.createQuery("FROM Participant p where p.id = (select max(x.id) from Participant x where x.userid = :userid and p.conferenceid = :conferenceid)", Participant.class)
+            Participant participant = session.createQuery("FROM Participant p where p.id = (select max(x.id) from Participant x where x.userid = :userid and x.conferenceid = :conferenceid)", Participant.class)
                     .setParameter("userid", userId)
                     .setParameter("conferenceid", conferenceId)
                     .uniqueResult();
@@ -106,4 +106,32 @@ public class M_Participant {
         }
     }
 
+    public static void deleteRequest(Long requestId) {
+        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+            // Begin a unit of work
+            session.beginTransaction();
+
+            Participant request = M_Participant.getRequestById(requestId);
+            session.delete(request);
+
+            session.getTransaction().commit();
+            session.close();
+        }
+    }
+
+    public static Participant getRequestByUserConference(Long userid, Long conferenceid) {
+        try (Session session = HibernateUtils.getSessionFactory().openSession();) {
+            // Begin a unit of work
+            session.beginTransaction();
+
+            Participant request = session.createQuery("FROM Participant p where p.id = (select max(x.id) from Participant x where x.userid = :userid and x.conferenceid = :conferenceid)", Participant.class)
+                    .setParameter("userid", userid)
+                    .setParameter("conferenceid", conferenceid)
+                    .uniqueResult();
+
+            session.getTransaction().commit();
+            session.close();
+            return request;
+        }
+    }
 }

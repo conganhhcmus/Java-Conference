@@ -144,6 +144,27 @@ public class C_UserProfile extends Component implements Initializable {
         appStage.show();
     }
 
+    public void joined() {
+        try {
+            changeJoined("/view/user_joined.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeJoined(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        Parent tmp = loader.load();
+        Scene scene = new Scene(tmp);
+
+        C_UserJoined temp = loader.getController();
+        temp.loadData(user);
+
+        final Stage appStage = (Stage) panel.getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.show();
+    }
+
     public void edit() {
         confirm_password.setVisible(true);
         save_change.setVisible(true);

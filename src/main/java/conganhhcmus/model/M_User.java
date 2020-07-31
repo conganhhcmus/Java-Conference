@@ -46,12 +46,52 @@ public class M_User {
         }
     }
 
-    public static List<User> getAllUser() {
+    public static List<User> getAllUserOrderByDate() {
         try (Session session = HibernateUtils.getSessionFactory().openSession();) {
             // Begin a unit of work
             session.beginTransaction();
 
-            List<User> users = session.createQuery("from User u where u.permission < 1", User.class).list();
+            List<User> users = session.createQuery("from User u where u.permission < 1 order by u.time desc", User.class).list();
+            users.forEach(System.out::println);
+
+            session.getTransaction().commit();
+            session.close();
+            return users;
+        }
+    }
+
+//    public static List<User> getAllUserFTSOrderByDate(String keyword) {
+//        try (Session session = HibernateUtils.getSessionFactory().openSession();) {
+//            // Begin a unit of work
+//            session.beginTransaction();
+//
+//            FullTextSession fullTextSession = Search.getFullTextSession(session);
+//
+//            QueryBuilder qb = fullTextSession.getSearchFactory()
+//                    .buildQueryBuilder().forEntity(User.class).get();
+//            org.apache.lucene.search.Query query = qb
+//                    .keyword().onFields("fullname") // Chỉ định tìm theo cột nào
+//                    .matching(keyword)
+//                    .createQuery();
+//
+//            org.hibernate.Query hibQuery = fullTextSession.createFullTextQuery(query, User.class);
+//
+//            List<User> results = hibQuery.list();
+//
+////            List<User> users = session.createQuery("from User u where u.permission < 1  order by u.time desc", User.class).list();
+//
+//            session.getTransaction().commit();
+//            session.close();
+//            return results;
+//        }
+//    }
+
+    public static List<User> getAllUserOrderByName() {
+        try (Session session = HibernateUtils.getSessionFactory().openSession();) {
+            // Begin a unit of work
+            session.beginTransaction();
+
+            List<User> users = session.createQuery("from User u where u.permission < 1 order by u.fullname asc", User.class).list();
             users.forEach(System.out::println);
 
             session.getTransaction().commit();

@@ -4,6 +4,7 @@ import conganhhcmus.model.M_Conference;
 import conganhhcmus.model.M_Image;
 import conganhhcmus.model.M_Participant;
 import conganhhcmus.model.entity.Conference;
+import conganhhcmus.utility.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,6 +43,9 @@ public class C_Home implements Initializable {
     @FXML
     private AnchorPane panel;
 
+    @FXML
+    private TextField search;
+
     private List<Conference> conferences;
 
 
@@ -68,6 +72,8 @@ public class C_Home implements Initializable {
             } else {
                 conferences = M_Conference.getAllConferenceOrderName();
             }
+
+            search();
             int temp = view.getSelectionModel().getSelectedIndex();
             if (temp == 0) {
                 listView(conferences);
@@ -78,6 +84,54 @@ public class C_Home implements Initializable {
 
         conferences = M_Conference.getAllConference();
         listView(conferences);
+    }
+
+
+    public void search() {
+        if (search.getText().isEmpty()) {
+            int index = sort.getSelectionModel().getSelectedIndex();
+            if (index == 0) {
+                conferences = M_Conference.getAllConference();
+            } else {
+                conferences = M_Conference.getAllConferenceOrderName();
+            }
+
+            int temp = view.getSelectionModel().getSelectedIndex();
+            if (temp == 0) {
+                listView(conferences);
+            } else {
+//                cardView();
+            }
+
+        } else {
+            int index = sort.getSelectionModel().getSelectedIndex();
+            if (index == 0) {
+//                conferences = M_Conference.getAllConferenceFTSOrderByDate(search.getText());
+                List<Conference> temp = new ArrayList<>();
+                for (Conference v : conferences) {
+                    if (Utils.containsIgnoreCase(v.getConferencename(),search.getText())) {
+                        temp.add(v);
+                    }
+                }
+                conferences = temp;
+            } else {
+//                conferences = M_Conference.getAllConferenceFTSOrderByDate(search.getText());
+                List<Conference> temp = new ArrayList<>();
+                for (Conference v : conferences) {
+                    if (Utils.containsIgnoreCase(v.getConferencename(),search.getText())) {
+                        temp.add(v);
+                    }
+                }
+                conferences = temp;
+            }
+
+            int temp = view.getSelectionModel().getSelectedIndex();
+            if (temp == 0) {
+                listView(conferences);
+            } else {
+//                cardView();
+            }
+        }
     }
 
     public void cardView() {
@@ -128,7 +182,7 @@ public class C_Home implements Initializable {
         Label time = new Label();
         time.setLayoutX(140.0);
         time.setLayoutY(46.0);
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm MM/dd/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy");
         String str = formatter.format(conference.getStarttime()) + " - " + formatter.format(conference.getEndtime());
         time.setText("Time: " + str);
         time.setFont(new Font("Arial", 13.0));
