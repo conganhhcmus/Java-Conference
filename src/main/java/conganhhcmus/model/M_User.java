@@ -122,6 +122,7 @@ public class M_User {
             User user = M_User.getUserById(userId);
             user.setUsername(newUser.getUsername());
             user.setPassword(newUser.getPassword());
+            user.setFullname(newUser.getFullname());
             user.setPermission(newUser.getPermission());
             user.setJoin_date(newUser.getJoin_date());
             user.setEmail(newUser.getEmail());
