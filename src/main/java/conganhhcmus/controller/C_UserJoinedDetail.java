@@ -87,7 +87,7 @@ public class C_UserJoinedDetail implements Initializable {
         join.setDisable(true);
         join.setText("Joined");
 
-        if (M_Participant.checkUserInConference(user.getId(), conference.getId()) == 1 && conference.getStarttime().before(new Date())) {
+        if (M_Participant.checkUserInConference(user.getId(), conference.getId()) == 1 && conference.getStarttime().after(new Date())) {
             join.setDisable(false);
             join.setText("Unjoin");
         }

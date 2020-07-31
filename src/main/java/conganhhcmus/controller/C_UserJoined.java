@@ -184,7 +184,7 @@ public class C_UserJoined implements Initializable {
         Label time = new Label();
         time.setLayoutX(140.0);
         time.setLayoutY(46.0);
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm MM/dd/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy");
         String str = formatter.format(conference.getStarttime()) + " - " + formatter.format(conference.getEndtime());
         time.setText("Time: " + str);
         time.setFont(new Font("Arial", 13.0));
@@ -237,7 +237,7 @@ public class C_UserJoined implements Initializable {
             }
         });
 
-        if (M_Participant.checkUserInConference(user.getId(), conference.getId()) == 1 && conference.getStarttime().before(new Date())) {
+        if (M_Participant.checkUserInConference(user.getId(), conference.getId()) == 1 && conference.getStarttime().after(new Date())) {
             join.setDisable(false);
             join.setText("Unjoin");
         }

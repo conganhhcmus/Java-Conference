@@ -40,7 +40,7 @@ public class C_SignIn implements Initializable {
         try {
             String hashPassword = Utils.hash(password.getText());
             this.user = M_User.getUserByUsername(username.getText());
-            if (Utils.isDiffString(user.getPassword(), hashPassword)) {
+            if (this.user == null || Utils.isDiffString(user.getPassword(), hashPassword)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
 
                 alert.setTitle("Error alert");
