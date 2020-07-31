@@ -127,12 +127,12 @@ values ('business.jpeg', 'gxD3STu+VpxI7KXcd5PFTw==', '2020-07-30 14:07:43');
 
 # CONFERENCE
 insert into CONFERENCE (MAIN_IMAGE, CONFERENCE_NAME, START_TIME, END_TIME, DESCRIPTION, TIME, MEMBER_NUMBER, ADDRESS)
-values (1, 'Student Conference', '2020-08-07 08:30:00', '2020-08-07 10:30:00',
+values (1, 'Student Conference', '2020-07-08 16:30:00', '2020-07-08 18:30:00',
         'Hoi nghi danh cho sinh vien, hoc sinh. Co su gop mat cua cac khach moi noi tieng!', '2020-07-30 10:13:19', 10,
         'Ho Chi Minh city');
 
 insert into CONFERENCE (MAIN_IMAGE, CONFERENCE_NAME, START_TIME, END_TIME, DESCRIPTION, TIME, MEMBER_NUMBER, ADDRESS)
-values (2, 'Teacher Conference', '2020-07-08 16:30:00', '2020-07-08 18:30:00',
+values (2, 'Teacher Conference', '2020-08-07 08:30:00', '2020-08-07 10:30:00',
         'Hoi nghi danh cho giao vien. Co su gop mat cua cac khach moi noi tieng!', '2020-07-30 10:13:19', 2,
         'Ho Chi Minh city');
 
